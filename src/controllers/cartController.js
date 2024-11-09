@@ -12,7 +12,6 @@ const getCartById = async (req, res)=>{
             path:'products.productId',
             model: 'Products',
         });
-        console.log(cart);
         res.json(cart? cart.products : []);
     }catch(error){
         res.status(500).json({ message: "Error fetching cart", error });
