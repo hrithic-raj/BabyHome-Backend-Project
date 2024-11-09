@@ -52,7 +52,7 @@ const increaseCount = async (req, res)=>{
         const updatedProducts = await cartService.increaseCount(userId, productId)
         res.json(updatedProducts);
     }catch(error){
-        res.status(500).json({ message: "Error removing item from cart", error });   
+        res.status(500).json({ message: "Error removing item from cart", error: error.message });
     }
 }
 
@@ -63,7 +63,7 @@ const decreaseCount = async (req, res)=>{
         const updatedProducts = await cartService.decreaseCount(userId, productId)
         res.json(updatedProducts);
     }catch(error){
-        res.status(500).json({ message: "Error removing item from cart", error });   
+        res.status(500).json({ message: "Error removing item from cart", error: error.message });   
     }
 }
 

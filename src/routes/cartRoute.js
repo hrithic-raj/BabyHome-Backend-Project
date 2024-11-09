@@ -3,15 +3,15 @@ const auth = require('../middlewares/auth');
 const { getCartById, addToCart, deleteCartItem, increaseCount, decreaseCount } = require('../controllers/cartController');
 const cartRouter = express.Router();
 
-cartRouter.get('/cart', auth, getCartById);
+cartRouter.get('/', auth, getCartById);
 
-cartRouter.post('/store/product/:productId', auth, addToCart);
+cartRouter.post('/:productId', auth, addToCart);
 
-cartRouter.delete('/cart/:productId', auth, deleteCartItem);
+cartRouter.delete('/:productId', auth, deleteCartItem);
 
-cartRouter.patch('/cart/increase/:productId', auth, increaseCount);
+cartRouter.patch('/increase/:productId', auth, increaseCount);
 
-cartRouter.patch('/cart/decrease/:productId', auth, decreaseCount);
+cartRouter.patch('/decrease/:productId', auth, decreaseCount);
 
 
 module.exports = cartRouter;

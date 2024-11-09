@@ -39,7 +39,7 @@ exports.addToCart = async (userId, productId, count) => {
 
 exports.deleteCartItem = async (userId, productId)=>{
     const cart = await Cart.findOne({ userId });
-    if (!cart) return res.status(404).json({ message: "Cart not found" });
+    if (!cart) throw new Error("Cart not found");
     
     cart.products = cart.products.filter((item) => !item.productId.equals(productId));
     cart.totalCartPrice = cart.products.reduce((total, item) => total + item.totalPrice, 0);
@@ -50,7 +50,7 @@ exports.deleteCartItem = async (userId, productId)=>{
 
 exports.increaseCount = async (userId, productId)=>{
     const cart = await Cart.findOne({userId});
-    if (!cart) return res.status(404).json({ message: "Cart not found" });
+    if (!cart) throw new Error( "Cart not found" );
     
     const product = cart.products.find((item)=>item.productId.equals(productId))
     if (!product) throw new Error("Product not found in cart");
@@ -67,7 +67,7 @@ exports.increaseCount = async (userId, productId)=>{
 
 exports.decreaseCount = async (userId, productId)=>{
     const cart = await Cart.findOne({userId});
-    if (!cart) return res.status(404).json({ message: "Cart not found" });
+    if (!cart) throw new Error("Cart not found");
     
     const product = cart.products.find((item)=>item.productId.equals(productId))
     if (!product) throw new Error("Product not found in cart");

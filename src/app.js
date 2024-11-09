@@ -8,6 +8,6 @@ app.use(express.urlencoded({extended: true}));
 
 app.use(productRouter)
 app.use(userRouter)
-app.use(cartRouter)
+app.use('/cart', cartRouter)
 
 module.exports = app;
