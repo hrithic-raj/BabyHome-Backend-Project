@@ -1,6 +1,7 @@
 const Cart = require('../models/cartModel')
 const Order = require('../models/orderModel');
 const addressService = require('../services/addressService')
+const mongoose = require('mongoose')
 
 exports.createOrder = async (userId, paymentMethod, addressId) =>{
     const cart = await Cart.findOne({userId}).populate('products.productId');
@@ -28,9 +29,18 @@ exports.createOrder = async (userId, paymentMethod, addressId) =>{
 }
 
 exports.getOrdersById = async (userId) =>{
-    const orders = await Order.find({userId})
-        .populate('items.productId')
-        // .populate('deliveryAddress')
+    const orders = await Order.aggregate([
+        {$match: {userId: new mongoose.Types.ObjectId(userId)}},
+        {$unwind: '$items'},
+        {
+            $lookup:{
+                from: 'products',
+                localField: 'items.productId',
+                foreignField: '_id',
+                as: 'items.productDetails'
+            }
+        }
+    ])
     if(!orders) throw new Error('No orders found');
     return orders;
 }

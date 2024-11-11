@@ -3,7 +3,7 @@ const auth = require('../middlewares/auth');
 const { getOrdersById, createOrder } = require('../controllers/orderController');
 const orderRouter = express.Router();
 
-orderRouter.post('/orders/:addressId', auth, createOrder);
-orderRouter.get('/orders', auth, getOrdersById);
+orderRouter.get('/', auth, getOrdersById);
+orderRouter.post('/:addressId', auth, createOrder);
 
 module.exports = orderRouter;
