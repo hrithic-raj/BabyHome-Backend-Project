@@ -15,10 +15,19 @@ exports.addAddress = async (userId, newAddress)=>{
     }
 }
 
-exports.getAddressById = async (userId) =>{
-    const userAddress = await Address.find({userId});
+exports.getAllAddressById = async (userId) =>{
+    const userAddress = await Address.findOne({userId});
     if(!userAddress) throw new Error('address not found');
-    return userAddress;
+    return userAddress.allAddress;
+}
+
+exports.getAddressById = async (userId, addressId) =>{
+    const userAddress = await Address.findOne({userId});
+    const addressIndex = userAddress.allAddress.findIndex(item => item._id.equals(addressId))
+    if(!userAddress) throw new Error('address not found');
+    if(addressIndex === -1) throw new Error('address not found');
+
+    return userAddress.allAddress[addressIndex];
 }
 
 exports.updateAddress = async (userId, addressId, addressData) =>{

@@ -12,11 +12,21 @@ const addAddress = async (req, res) =>{
     }
 }
 
+const getAllAddressById = async (req, res) =>{
+    try{
+        const {userId} = req.userId;
+        const allAddress = await addressService.getAllAddressById(userId);
+        res.json(allAddress);
+    }catch(error){
+        res.status(500).json({ message: "Error getting address", error: error.message });
+    }
+}
 const getAddressById = async (req, res) =>{
     try{
         const {userId} = req.userId;
-        const allAddress = await addressService.getAddressById(userId);
-        res.json(allAddress);
+        const addressId = req.params.addressId;
+        const address = await addressService.getAddressById(userId, addressId);
+        res.json(address);
     }catch(error){
         res.status(500).json({ message: "Error getting address", error: error.message });
     }
@@ -48,4 +58,5 @@ module.exports = {
     getAddressById,
     updateAddress,
     deleteAddress,
+    getAllAddressById,
 }

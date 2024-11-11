@@ -20,7 +20,22 @@ const productById = async (req, res)=>{
     res.json({status : "fetching success", data : product});
 }
 
+const getBestSellers = async (req, res)=>{
+    const product = await productService.getBestSellers();
+    
+    if(!product) return res.status(400).json({message:"Error Fetching BestSellers"});
+    res.json({status : "fetching success", data : product});
+}
+const getNewlyAdded = async (req, res)=>{
+    const product = await productService.getNewlyAdded();
+    
+    if(!product) return res.status(400).json({message:"Error Fetching NewlyAdded"});
+    res.json({status : "fetching success", data : product});
+}
+
 module.exports = {
     allProducts,
     productById,
+    getBestSellers,
+    getNewlyAdded,
 }
