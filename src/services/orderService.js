@@ -1,7 +1,8 @@
 const Cart = require('../models/cartModel')
-const Order = require('../models/orderModel')
+const Order = require('../models/orderModel');
+const addressService = require('../services/addressService')
 
-exports.createOrder = async (userId, paymentMethod) =>{
+exports.createOrder = async (userId, paymentMethod, addressId) =>{
     const cart = await Cart.findOne({userId}).populate('products.productId');
     if(!cart || cart.products.length === 0){
         throw new Error('Cart is Empty');
@@ -14,7 +15,8 @@ exports.createOrder = async (userId, paymentMethod) =>{
     }));
 
     const totalAmount = cart.totalCartPrice;
-    const order = new Order({userId, items, paymentMethod, totalAmount});
+    const deliveryAddress = await addressService.getAddressById(userId, addressId);
+    const order = new Order({userId, items, paymentMethod, totalAmount, deliveryAddress});
     await order.save();
     
     //clear cart
@@ -26,7 +28,9 @@ exports.createOrder = async (userId, paymentMethod) =>{
 }
 
 exports.getOrdersById = async (userId) =>{
-    const orders = await Order.findOne({userId}).populate('items.productId')
+    const orders = await Order.find({userId})
+        .populate('items.productId')
+        // .populate('deliveryAddress')
     if(!orders) throw new Error('No orders found');
     return orders;
 }

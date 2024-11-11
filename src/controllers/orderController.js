@@ -4,9 +4,10 @@ const createOrder = async (req, res)=>{
     try{
         const {userId} = req.userId;
         const paymentMethod = req.body.paymentMethod;
+        const addressId = req.params.addressId
         
         // const method = paymentMethod.toString()
-        const order = await orderService.createOrder(userId, paymentMethod)
+        const order = await orderService.createOrder(userId, paymentMethod, addressId)
         res.json({message: "Order placed successfully", order});
     }catch(error){
         res.status(500).json({message: "Error placing order", error: error.message});

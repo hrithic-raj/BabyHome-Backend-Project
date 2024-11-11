@@ -23,10 +23,11 @@ exports.getAllAddressById = async (userId) =>{
 
 exports.getAddressById = async (userId, addressId) =>{
     const userAddress = await Address.findOne({userId});
-    const addressIndex = userAddress.allAddress.findIndex(item => item._id.equals(addressId))
     if(!userAddress) throw new Error('address not found');
+    const addressIndex = userAddress.allAddress.findIndex(item => item._id.equals(addressId))
+    
     if(addressIndex === -1) throw new Error('address not found');
-
+    
     return userAddress.allAddress[addressIndex];
 }
 
