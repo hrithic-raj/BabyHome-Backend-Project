@@ -10,15 +10,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['admin', 'subAdmin', 'user'],
         default: 'user'
-    },
-    // address: {
-    //     pincode: {type: Number},
-    //     housename: {type: String},
-    //     city: {type: String},
-    //     landmark: {type: String},
-    //     district: {type: String},
-    //     state: {type: String}
-    // }
+    }
 })
 const User = mongoose.model("Users", userSchema);
 

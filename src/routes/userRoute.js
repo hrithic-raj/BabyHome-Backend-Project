@@ -1,11 +1,12 @@
 const express = require('express');
 const { allUsers, userById, signup, login } = require('../controllers/userController');
+const userValidation = require('../validations/userValidation');
 const userRouter = express.Router();
 
 userRouter.get('/admin/users', allUsers);
 userRouter.get('/admin/users/user/:id', userById);
 
-userRouter.post('/signup', signup);
+userRouter.post('/signup',userValidation, signup);
 userRouter.post('/login', login);
 
 
