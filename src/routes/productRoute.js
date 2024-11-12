@@ -8,6 +8,6 @@ productRouter.get('/newlyadded', getNewlyAdded);
 
 productRouter.get('/bestseller', getBestSellers);
 
-productRouter.get('/product/:id', productById);
+productRouter.get('/:id', productById);
 
 module.exports = productRouter;
