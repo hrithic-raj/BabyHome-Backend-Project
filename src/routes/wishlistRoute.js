@@ -3,8 +3,8 @@ const { addToWishlist, getWishlistById, deleteFromWishlist } = require('../contr
 const auth = require('../middlewares/auth');
 const wishlistRouter = express.Router();
 
-wishlistRouter.post('/wishlist/:productId', auth, addToWishlist);
-wishlistRouter.delete('/wishlist/:productId', auth, deleteFromWishlist);
-wishlistRouter.get('/wishlist', auth, getWishlistById);
+wishlistRouter.get('/', auth, getWishlistById);
+wishlistRouter.post('/:productId', auth, addToWishlist);
+wishlistRouter.delete('/:productId', auth, deleteFromWishlist);
 
 module.exports = wishlistRouter;

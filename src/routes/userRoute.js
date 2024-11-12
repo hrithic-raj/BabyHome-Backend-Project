@@ -3,8 +3,8 @@ const { allUsers, userById, signup, login } = require('../controllers/userContro
 const userValidation = require('../validations/userValidation');
 const userRouter = express.Router();
 
-userRouter.get('/admin/users', allUsers);
-userRouter.get('/admin/users/user/:id', userById);
+// userRouter.get('/admin/users', allUsers);
+// userRouter.get('/admin/users/user/:id', userById);
 
 userRouter.post('/signup',userValidation, signup);
 userRouter.post('/login', login);

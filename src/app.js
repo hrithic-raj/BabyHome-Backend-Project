@@ -10,10 +10,10 @@ const app = express();
 app.use(express.urlencoded({extended: true}));
 
 app.use('/store', productRouter)
-app.use(userRouter)
+app.use('/users', userRouter)
 app.use('/cart', cartRouter)
 app.use('/orders', orderRouter)
-app.use(addressRouter)
-app.use(wishlistRouter)
+app.use('/address', addressRouter)
+app.use('/wishlist', wishlistRouter)
 
 module.exports = app;
