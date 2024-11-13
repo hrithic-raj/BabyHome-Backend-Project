@@ -34,8 +34,7 @@ const addToCart = async (req, res) => {
         const result = await cartService.addToCart(userId, productId, count);
         res.status(201).json({
             status:"success",
-            message: "product added to the cart successfully",
-            data: result
+            response: result
         });
     } catch (error) {
         res.status(500).json({ message: "Error adding to cart", error: error.message });
@@ -47,12 +46,10 @@ const deleteCartItem = async (req, res) => {
     try {
         const userId = req.id;
         const productId = req.params.productId;
-
         const result = await cartService.deleteCartItem(userId, productId);
         res.status(200).json({
             status:"success",
-            message: "product removed from cart",
-            data: result
+            response: result
         });
     } catch (error) {
         res.status(500).json({ message: "Error removing item from cart", error });
