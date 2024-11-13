@@ -2,7 +2,7 @@ const orderService = require('../services/orderService')
 
 const createOrder = async (req, res)=>{
     try{
-        const {userId} = req.userId;
+        const userId = req.id;
         const paymentMethod = req.body.paymentMethod;
         const addressId = req.params.addressId
         
@@ -16,7 +16,7 @@ const createOrder = async (req, res)=>{
 
 const getOrdersById = async (req, res)=>{
     try{
-        const {userId} = req.userId;
+        const userId = req.id;
         const order = await orderService.getOrdersById(userId)
         res.json(order);
     }catch(error){

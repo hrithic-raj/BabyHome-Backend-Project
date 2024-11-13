@@ -7,9 +7,9 @@ const tokenCreator = require('../utils/tokenCreator');
 
 const signup = async (req, res)=>{
     try{
-        const {name, email, username, password} = req.body;
+        const {name, email, username, password, role} = req.body;
         const hashedPass = await bcrypt.hash(password, 10);
-        const user = await userService.addUser({name, email, username, password: hashedPass})
+        const user = await userService.addUser({name, email, username, password: hashedPass, role}) 
         res.status(201).json({message:"User registered", data: user});
     }catch(error){
         res.status(500).json({error: error.message})
@@ -24,8 +24,8 @@ const login = async (req, res) =>{
 
         const isMatch = await bcrypt.compare(password, user.password);
         if(!isMatch) return res.status(400).json({ message: 'Incorrect password' });
-
-        const token = await tokenCreator(user.id);
+        
+        const token = await tokenCreator(user.id, user.role);
         res.json({token});
     }catch(error){
         res.status(500).json({ error: error.message });

@@ -6,7 +6,7 @@ const cartService = require('../services/cartService')
 
 const getCartById = async (req, res)=>{
     try{
-        const {userId} = req.userId;
+        const userId = req.id;
         
         const cart = await Cart.findOne({userId}).populate({
             path:'products.productId',
@@ -20,12 +20,15 @@ const getCartById = async (req, res)=>{
 
 const addToCart = async (req, res) => {
     try {
-        const { userId } = req.userId;
+        const userId  = req.id;
         const productId = req.params.productId;
         const count = Number(req.body.data);
 
         const result = await cartService.addToCart(userId, productId, count);
-        res.json(result);
+        res.status(201).json({
+            status:"success",
+            data: result
+        });
     } catch (error) {
         res.status(500).json({ message: "Error adding to cart", error: error.message });
     }
@@ -34,7 +37,7 @@ const addToCart = async (req, res) => {
 
 const deleteCartItem = async (req, res) => {
     try {
-        const { userId } = req.userId;
+        const userId = req.id;
         const productId = req.params.productId;
 
         const result = await cartService.deleteCartItem(userId, productId);
@@ -46,7 +49,7 @@ const deleteCartItem = async (req, res) => {
 
 const increaseCount = async (req, res)=>{
     try{
-        const { userId } = req.userId;
+        const userId = req.id;
         const productId = req.params.productId;
         const updatedProducts = await cartService.increaseCount(userId, productId)
         res.json(updatedProducts);
@@ -57,7 +60,7 @@ const increaseCount = async (req, res)=>{
 
 const decreaseCount = async (req, res)=>{
     try{
-        const { userId } = req.userId;
+        const userId = req.id;
         const productId = req.params.productId;
         const updatedProducts = await cartService.decreaseCount(userId, productId)
         res.json(updatedProducts);

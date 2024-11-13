@@ -2,7 +2,7 @@ const addressService = require('../services/addressService')
 
 const addAddress = async (req, res) =>{
     try{
-        const {userId} = req.userId;
+        const userId = req.id;
         const newAddress = req.body;
         // console.log(newAddress);
         const address = await addressService.addAddress(userId, newAddress);
@@ -14,7 +14,7 @@ const addAddress = async (req, res) =>{
 
 const getAllAddressById = async (req, res) =>{
     try{
-        const {userId} = req.userId;
+        const userId = req.id;
         const allAddress = await addressService.getAllAddressById(userId);
         res.json(allAddress);
     }catch(error){
@@ -23,7 +23,7 @@ const getAllAddressById = async (req, res) =>{
 }
 const getAddressById = async (req, res) =>{
     try{
-        const {userId} = req.userId;
+        const userId = req.id;
         const addressId = req.params.addressId;
         const address = await addressService.getAddressById(userId, addressId);
         res.json(address);
@@ -33,7 +33,7 @@ const getAddressById = async (req, res) =>{
 }
 const updateAddress = async (req, res) =>{
     try{
-        const {userId} = req.userId;
+        const userId = req.id;
         const addressId = req.params.addressId;
         const addressData = req.body;
         const updatedAddress = await addressService.updateAddress(userId, addressId, addressData);
@@ -45,7 +45,7 @@ const updateAddress = async (req, res) =>{
 
 const deleteAddress = async (req, res) =>{
     try{
-        const {userId} = req.userId;
+        const userId = req.id;
         const addressId = req.params.addressId;
         const address = await addressService.deleteAddress(userId, addressId);
         res.json(address);

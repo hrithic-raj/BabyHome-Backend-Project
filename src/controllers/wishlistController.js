@@ -2,7 +2,7 @@ const wishlistService = require('../services/wishlistService')
 
 const addToWishlist = async (req, res) =>{
     try{
-        const {userId} = req.userId;
+        const userId = req.id;
         const productId = req.params.productId;
         const wishlist = await wishlistService.addToWishlist(userId, productId);
         res.json(wishlist);
@@ -13,7 +13,7 @@ const addToWishlist = async (req, res) =>{
 
 const deleteFromWishlist = async (req, res) =>{
     try{
-        const {userId} = req.userId;
+        const userId = req.id;
         const productId = req.params.productId;
         const wishlist = await wishlistService.deleteFromWishlist(userId, productId);
         res.json(wishlist);
@@ -24,7 +24,7 @@ const deleteFromWishlist = async (req, res) =>{
 
 const getWishlistById = async (req, res) =>{
     try{
-        const {userId} = req.userId;
+        const userId = req.id;
         const productId = req.params.productId;
         const wishlist = await wishlistService.getWishlistById(userId);
         res.json(wishlist);
