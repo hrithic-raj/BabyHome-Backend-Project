@@ -5,6 +5,7 @@ const cartRouter = require('./routes/cartRoute');
 const orderRouter = require('./routes/orderRoute');
 const addressRouter = require('./routes/addressRoute');
 const wishlistRouter = require('./routes/wishlistRoute');
+const globalErrorHandler = require('./middlewares/globalErrorHandler');
 const app = express();
 
 app.use(express.urlencoded({extended: true}));
@@ -16,4 +17,6 @@ app.use('/orders', orderRouter)
 app.use('/address', addressRouter)
 app.use('/wishlist', wishlistRouter)
 
+
+app.use(globalErrorHandler);
 module.exports = app;

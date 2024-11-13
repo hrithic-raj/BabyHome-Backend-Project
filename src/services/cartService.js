@@ -1,9 +1,10 @@
 const Cart = require('../models/cartModel');
 const Product = require('../models/productModel');
+const AppError = require('../utils/AppError');
 
 exports.addToCart = async (userId, productId, count) => {
     const product = await Product.findById(productId);
-    if (!product) throw new Error("Product not found");
+    if (!product) throw new AppError("Product not found", 404);
 
     const price = product.price;
     const totalPrice = price * count;
@@ -39,7 +40,7 @@ exports.addToCart = async (userId, productId, count) => {
 
 exports.deleteCartItem = async (userId, productId)=>{
     const cart = await Cart.findOne({ userId });
-    if (!cart) throw new Error("Cart not found");
+    if (!cart) throw new AppError("Cart not found", 404);
     
     cart.products = cart.products.filter((item) => !item.productId.equals(productId));
     cart.totalCartPrice = cart.products.reduce((total, item) => total + item.totalPrice, 0);
@@ -50,10 +51,10 @@ exports.deleteCartItem = async (userId, productId)=>{
 
 exports.increaseCount = async (userId, productId)=>{
     const cart = await Cart.findOne({userId});
-    if (!cart) throw new Error( "Cart not found" );
+    if (!cart) throw new AppError( "Cart not found", 404 );
     
     const product = cart.products.find((item)=>item.productId.equals(productId))
-    if (!product) throw new Error("Product not found in cart");
+    if (!product) throw new AppError("Product not found in cart", 404);
     
     product.count += 1;
     product.totalPrice = product.price * product.count;
@@ -67,10 +68,10 @@ exports.increaseCount = async (userId, productId)=>{
 
 exports.decreaseCount = async (userId, productId)=>{
     const cart = await Cart.findOne({userId});
-    if (!cart) throw new Error("Cart not found");
+    if (!cart) throw new AppError("Cart not found", 404);
     
     const product = cart.products.find((item)=>item.productId.equals(productId))
-    if (!product) throw new Error("Product not found in cart");
+    if (!product) throw new AppError("Product not found in cart", 404);
 
     product.count -= 1;
     product.totalPrice = product.price * product.count;

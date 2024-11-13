@@ -15,3 +15,5 @@ const adminAuth = async (req, res, next)=>{
 }
 
 module.exports = adminAuth;
+
+//do try and catch and custom error

@@ -1,4 +1,4 @@
-const AppError = require('../utils/AppError')
+// const AppError = require('../utils/AppError')
 require('dotenv').config({path:"../../.env"})
 
 const globalErrorHandler = (err, req, res, next) =>{

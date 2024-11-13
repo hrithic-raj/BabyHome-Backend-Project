@@ -2,21 +2,26 @@ const Cart = require('../models/cartModel')
 const Order = require('../models/orderModel');
 const addressService = require('../services/addressService')
 const mongoose = require('mongoose')
+const AppError = require('../utils/AppError')
 
 exports.createOrder = async (userId, paymentMethod, addressId) =>{
     const cart = await Cart.findOne({userId}).populate('products.productId');
     if(!cart || cart.products.length === 0){
-        throw new Error('Cart is Empty');
+        throw new AppError('Cart is Empty, add product to cart', 204);
     }
-
+    
     const items = cart.products.map(item=>({
         productId: item.productId._id,
         count: item.count,
         price: item.price
     }));
-
+    
     const totalAmount = cart.totalCartPrice;
     const deliveryAddress = await addressService.getAddressById(userId, addressId);
+    if(!deliveryAddress){
+        throw new AppError('Address id not valid', 400);
+    }
+    
     const order = new Order({userId, items, paymentMethod, totalAmount, deliveryAddress});
     await order.save();
     
@@ -41,6 +46,6 @@ exports.getOrdersById = async (userId) =>{
             }
         }
     ])
-    if(!orders) throw new Error('No orders found');
+    if(!orders || orders.length === 0) throw new AppError('No orders found', 404);
     return orders;
 }

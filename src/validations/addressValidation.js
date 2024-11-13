@@ -7,7 +7,7 @@ const addressValidation = [
     body('country').not().isEmpty().withMessage('country required !'),
     body('country').not().isEmpty().withMessage('country required !'),
     body('pincode').isLength({min:6}).withMessage('Enter a valid pincode !'),
-    body('phone').isLength({min:10}).withMessage('Enter a valid phone number !'),
+    body('phone').isLength({max:10,min:10}).withMessage('Enter a valid phone number !'),
     (req,res,next) => {
         const errors = validationResult(req);
         if(!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
