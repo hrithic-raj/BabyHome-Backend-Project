@@ -6,7 +6,11 @@ const addAddress = async (req, res) =>{
         const newAddress = req.body;
         // console.log(newAddress);
         const address = await addressService.addAddress(userId, newAddress);
-        res.json(address);
+        res.status(201).json({
+            status:"success",
+            message:"address added successfully",
+            data: address
+        });
     } catch (error) {
         res.status(500).json({ message: "Error adding address", error: error.message });
     }
@@ -16,8 +20,11 @@ const getAllAddressById = async (req, res) =>{
     try{
         const userId = req.id;
         const allAddress = await addressService.getAllAddressById(userId);
-        res.json(allAddress);
-    }catch(error){
+        res.status(201).json({
+            status:"success",
+            data: allAddress
+        });
+        }catch(error){
         res.status(500).json({ message: "Error getting address", error: error.message });
     }
 }
@@ -26,7 +33,10 @@ const getAddressById = async (req, res) =>{
         const userId = req.id;
         const addressId = req.params.addressId;
         const address = await addressService.getAddressById(userId, addressId);
-        res.json(address);
+        res.status(200).json({
+            status:"success",
+            data: address
+        });
     }catch(error){
         res.status(500).json({ message: "Error getting address", error: error.message });
     }

@@ -10,9 +10,16 @@ const signup = async (req, res)=>{
         const {name, email, username, password, role} = req.body;
         const hashedPass = await bcrypt.hash(password, 10);
         const user = await userService.addUser({name, email, username, password: hashedPass, role}) 
-        res.status(201).json({message:"User registered", data: user});
+        res.status(201).json({
+            status: "success",
+            message: "User registered",
+            data: user
+        });
     }catch(error){
-        res.status(500).json({error: error.message})
+        res.status(500).json({
+            message:"error while register user",
+            error: error.message
+        })
     }
 }
 
@@ -26,9 +33,16 @@ const login = async (req, res) =>{
         if(!isMatch) return res.status(400).json({ message: 'Incorrect password' });
         
         const token = await tokenCreator(user.id, user.role);
-        res.json({token});
+        res.status(200).json({
+            status:"success",
+            message: "User login successfull",
+            token,
+        });
     }catch(error){
-        res.status(500).json({ error: error.message });
+        res.status(500).json({
+            message:"error while login user", 
+            error: error.message 
+        });
     }
 }
 
