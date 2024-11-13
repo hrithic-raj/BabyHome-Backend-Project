@@ -1,5 +1,3 @@
-const express = require('express')
-const app = require('../app')
 const productService = require('../services/productService')
 
 const allProducts = async (req, res)=>{

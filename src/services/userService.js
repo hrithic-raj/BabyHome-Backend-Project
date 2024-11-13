@@ -5,10 +5,6 @@ exports.addUser = async (userData) =>{
     return await user.save();
 }
 
-exports.getAllUsers = async ()=>{
-    return await User.find();
-}
-
-exports.getUserById = async (UserId) =>{
-    return await User.findById(UserId);
+exports.getUserByUsername = async (username) =>{
+    return await User.findOne({username});
 }

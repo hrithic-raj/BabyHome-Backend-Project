@@ -1,7 +1,4 @@
-const express = require('express')
-const app = require('../app');
 const Cart = require('../models/cartModel');
-const Product = require('../models/productModel');
 const cartService = require('../services/cartService')
 
 const getCartById = async (req, res)=>{
