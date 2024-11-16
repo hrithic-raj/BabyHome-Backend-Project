@@ -47,6 +47,9 @@ const blockUserById = catchAsync(async (req, res, next)=>{
         data : user
     });
 });
+
+
+
 module.exports = {
     getAllUsers,
     getUserById,

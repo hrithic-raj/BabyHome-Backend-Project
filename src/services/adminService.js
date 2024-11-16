@@ -1,7 +1,7 @@
 const User = require("../models/userModel");
 const AppError = require("../utils/AppError");
 
-
+//users
 exports.getAllUsers = async ()=>{
     return await User.find();
 }
@@ -20,7 +20,7 @@ exports.deleteUserById = async (userId) =>{
 }
 
 exports.blockUserById = async (userId) =>{
-    let user = await User.findById(userId) 
+    let user = await User.findById(userId)
     if(!user){
         throw new AppError("User not found", 404);
     }
@@ -34,3 +34,7 @@ exports.blockUserById = async (userId) =>{
     return user;
 }
 
+//product
+// exports.addProduct = async () =>{
+
+// }

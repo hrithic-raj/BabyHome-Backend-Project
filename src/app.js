@@ -7,6 +7,7 @@ const addressRouter = require('./routes/addressRoute');
 const wishlistRouter = require('./routes/wishlistRoute');
 const adminRouter = require('./routes/adminRoute');
 const globalErrorHandler = require('./middlewares/globalErrorHandler');
+const mongooseErrorHandler = require('./middlewares/mongooseErrorHandler');
 const app = express();
 
 app.use(express.urlencoded({extended: true}));
@@ -19,6 +20,9 @@ app.use('/orders', orderRouter)
 app.use('/address', addressRouter)
 app.use('/wishlist', wishlistRouter)
 app.use('/admin', adminRouter)
+
+//mongoose error handler
+app.use(mongooseErrorHandler);
 
 //global error handler
 app.use(globalErrorHandler);

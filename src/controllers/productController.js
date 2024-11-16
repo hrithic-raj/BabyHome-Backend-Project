@@ -17,7 +17,7 @@ const allProducts = catchAsync(async (req, res, next)=>{
 });
 
 const productById = catchAsync(async (req, res, next)=>{
-    const productId = req.params.id;
+    const productId = req.params.productId;
     const product = await productService.getProductById(productId);
     if(!product) return next(new AppError( "product not found", 404));
     

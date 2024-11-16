@@ -10,6 +10,7 @@ const globalErrorHandler = (err, req, res, next) =>{
             status : err.status,
             message : err.message,
             stack : err.stack,
+            name : err.name,
             error : err,
         });
     }else if(process.env.NODE_ENV === 'production'){
