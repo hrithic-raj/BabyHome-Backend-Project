@@ -1,6 +1,10 @@
 const adminService = require('../services/adminService');
+const { getProductById } = require('../services/productService');
 const AppError = require('../utils/AppError');
 const catchAsync = require('../utils/asyncErrorHandler');
+
+
+//Users controllers:-
 
 const getAllUsers = catchAsync(async (req, res, next)=>{
     const users = await adminService.getAllUsers();
@@ -49,10 +53,81 @@ const blockUserById = catchAsync(async (req, res, next)=>{
 });
 
 
+//Product controllers:-
+
+const addProduct = catchAsync(async (req, res, next)=>{
+    let {images, ...otherDatas} = req.body;
+    images = images.split(',')
+    let newProduct = {images, ...otherDatas}
+    const result = await adminService.addProduct(newProduct);
+    res.status(201).json({
+        status : "success",
+        message:"product added successfully",
+        data : result
+    });
+});
+
+const deleteProductById = catchAsync(async (req, res, next)=>{
+    const productId = req.params.productId;
+    const result = await adminService.deleteProductById(productId)
+    res.status(200).json({
+        status : "success",
+        message:"product deleted successfully",
+        data : result
+    });
+});
+
+const updateProductById = catchAsync(async (req, res, next)=>{
+    const productId = req.params.productId;
+    const productData = req.body;
+    
+    const updatedProduct = await adminService.updateProductById(productId, productData);
+    res.status(200).json({
+        status : "success",
+        message:"product updated successfully",
+        data : updatedProduct
+    });
+})
+
+const getAllOrders = catchAsync(async (req, res, next)=>{
+    const orders = await adminService.getAllOrders();
+    res.status(200).json({
+        status : "success",
+        message:"All orders fetched successfully",
+        data : orders
+    });
+});
+
+const getTotalRevenue = catchAsync(async (req, res, next)=>{
+    const totalRevenue = await adminService.getTotalRevenue();
+    
+    res.status(200).json({
+        status : "success",
+        message:"Total revenue calculated successfully",
+        data : totalRevenue
+    });
+});
+
+const getSoldProductCount = catchAsync(async (req, res, next)=>{
+    const soldProduct = await adminService.getSoldProductCount();
+    
+    res.status(200).json({
+        status : "success",
+        message:"Total sold product's count fetched successfully",
+        data : soldProduct
+    });
+});
+
 
 module.exports = {
     getAllUsers,
     getUserById,
     deleteUserById,
     blockUserById,
+    addProduct,
+    deleteProductById,
+    updateProductById,
+    getAllOrders,
+    getTotalRevenue,
+    getSoldProductCount,
 }
