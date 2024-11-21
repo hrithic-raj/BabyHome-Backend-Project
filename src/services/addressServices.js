@@ -1,6 +1,6 @@
 const Address = require("../models/addressModel")
 const mongoose = require('mongoose');
-const AppError = require("../utils/AppError");
+const AppError = require("../utils/appError");
 
 exports.addAddress = async (userId, newAddress)=>{
     if(!newAddress) throw new AppError("Add address and try again", 400);

@@ -1,16 +1,25 @@
 const express = require('express');
-const productRouter = require('./routes/productRoute');
-const userRouter = require('./routes/userRoute');
-const cartRouter = require('./routes/cartRoute');
-const orderRouter = require('./routes/orderRoute');
-const addressRouter = require('./routes/addressRoute');
-const wishlistRouter = require('./routes/wishlistRoute');
-const adminRouter = require('./routes/adminRoute');
+const productRouter = require('./routes/productRoutes');
+const userRouter = require('./routes/userRoutes');
+const cartRouter = require('./routes/cartRoutes');
+const orderRouter = require('./routes/orderRoutes');
+const addressRouter = require('./routes/addressRoutes');
+const wishlistRouter = require('./routes/wishlistRoutes');
+const adminRouter = require('./routes/adminRoutes');
+const cors = require('cors');
 const globalErrorHandler = require('./middlewares/globalErrorHandler');
 const mongooseErrorHandler = require('./middlewares/mongooseErrorHandler');
 const app = express();
 
 app.use(express.urlencoded({extended: true}));
+
+//allow frontend
+app.use(
+    cors({
+        origin: 'http://localhost:3000',
+        credentials: true,
+    })
+)
 
 //routes
 app.use('/store', productRouter)

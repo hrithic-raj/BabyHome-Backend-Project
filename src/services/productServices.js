@@ -1,5 +1,5 @@
 const Product = require("../models/productModel");
-const AppError = require("../utils/AppError");
+const AppError = require("../utils/appError");
 
 exports.getAllProducts = async ()=>{
     return await Product.find();

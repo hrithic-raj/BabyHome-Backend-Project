@@ -1,8 +1,8 @@
 const express = require('express');
 const adminRouter = express.Router();
 const adminAuth = require('../middlewares/adminAuth');
-const { getAllUsers, getUserById, deleteUserById, blockUserById, deleteProductById, addProduct, updateProductById, getAllOrders, getTotalRevenue, getSoldProductCount } = require('../controllers/adminController');
-const { allProducts, productById } = require('../controllers/productController');
+const { getAllUsers, getUserById, deleteUserById, blockUserById, deleteProductById, addProduct, updateProductById, getAllOrders, getTotalRevenue, getSoldProductCount } = require('../controllers/adminControllers');
+const { allProducts, productById } = require('../controllers/productControllers');
 const productValidation = require('../validations/productValidation');
 
 adminRouter.get('/users', adminAuth, getAllUsers);
@@ -18,4 +18,4 @@ adminRouter.get('/orders', adminAuth, getAllOrders);
 adminRouter.get('/totalRevenue', adminAuth, getTotalRevenue);
 adminRouter.get('/totalProductSold', adminAuth, getSoldProductCount);
 
-module.exports = adminRouter;  
+module.exports = adminRouter;

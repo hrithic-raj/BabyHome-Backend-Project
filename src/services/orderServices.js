@@ -1,8 +1,8 @@
 const Cart = require('../models/cartModel')
 const Order = require('../models/orderModel');
-const addressService = require('../services/addressService')
+const addressService = require('./addressServices')
 const mongoose = require('mongoose')
-const AppError = require('../utils/AppError')
+const AppError = require('../utils/appError')
 
 exports.createOrder = async (userId, paymentMethod, addressId) =>{
     const cart = await Cart.findOne({userId}).populate('products.productId');

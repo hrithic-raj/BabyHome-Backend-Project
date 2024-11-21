@@ -1,6 +1,6 @@
 const express = require('express');
 const auth = require('../middlewares/auth');
-const { getCartById, addToCart, deleteCartItem, increaseCount, decreaseCount } = require('../controllers/cartController');
+const { getCartById, addToCart, deleteCartItem, increaseCount, decreaseCount } = require('../controllers/cartControllers');
 const cartRouter = express.Router();
 
 cartRouter.get('/', auth, getCartById);

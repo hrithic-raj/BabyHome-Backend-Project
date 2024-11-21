@@ -1,5 +1,5 @@
 const Cart = require('../models/cartModel');
-const cartService = require('../services/cartService')
+const cartService = require('../services/cartServices')
 const catchAsync = require('../utils/asyncErrorHandler')
 
 

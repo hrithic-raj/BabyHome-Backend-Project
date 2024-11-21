@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const catchAsync = require('../utils/asyncErrorHandler');
-const AppError = require('../utils/AppError');
+const AppError = require('../utils/appError');
 require('dotenv').config({path:"../../.env"})
 
 const adminAuth = catchAsync(async (req, res, next)=>{

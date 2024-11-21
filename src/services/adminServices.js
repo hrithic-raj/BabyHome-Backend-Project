@@ -1,8 +1,8 @@
 const Order = require("../models/orderModel");
 const Product = require("../models/productModel");
 const User = require("../models/userModel");
-const AppError = require("../utils/AppError");
-const { getAllProducts } = require("./productService");
+const AppError = require("../utils/appError");
+const { getAllProducts } = require("./productServices");
 
 //users
 exports.getAllUsers = async ()=>{
@@ -58,7 +58,6 @@ exports.updateProductById = async (productId, productData)=>{
     );
     
     if(!updatedProduct) throw new AppError("Product not found", 404);
-    console.log(updatedProduct);
     
     return updatedProduct;
 }

@@ -1,4 +1,4 @@
-const wishlistService = require('../services/wishlistService')
+const wishlistService = require('../services/wishlistServices')
 const catchAsync = require('../utils/asyncErrorHandler')
 
 const addToWishlist = catchAsync(async (req, res, next) =>{

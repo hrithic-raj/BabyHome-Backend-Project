@@ -1,6 +1,6 @@
-const adminService = require('../services/adminService');
-const { getProductById } = require('../services/productService');
-const AppError = require('../utils/AppError');
+const adminService = require('../services/adminServices');
+const { getProductById } = require('../services/productServices');
+const AppError = require('../utils/appError');
 const catchAsync = require('../utils/asyncErrorHandler');
 
 

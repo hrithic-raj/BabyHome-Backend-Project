@@ -1,5 +1,5 @@
 const User = require("../models/userModel");
-const AppError = require("../utils/AppError");
+const AppError = require("../utils/appError");
 
 exports.addUser = async (userData) =>{
     const user = new User(userData);

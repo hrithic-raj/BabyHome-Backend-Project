@@ -1,6 +1,6 @@
 const express = require('express');
 const auth = require('../middlewares/auth');
-const { addAddress, getAddressById, updateAddress, deleteAddress, getAllAddressById } = require('../controllers/addressController');
+const { addAddress, getAddressById, updateAddress, deleteAddress, getAllAddressById } = require('../controllers/addressControllers');
 const addressValidation = require('../validations/addressValidation');
 const addressRouter = express.Router();
 

@@ -1,6 +1,6 @@
 const Cart = require('../models/cartModel');
 const Product = require('../models/productModel');
-const AppError = require('../utils/AppError');
+const AppError = require('../utils/appError');
 
 exports.addToCart = async (userId, productId, count) => {
     const product = await Product.findById(productId);

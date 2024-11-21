@@ -1,4 +1,4 @@
-const orderService = require('../services/orderService')
+const orderService = require('../services/orderServices')
 const catchAsync = require('../utils/asyncErrorHandler')
 
 const createOrder = catchAsync(async (req, res, next)=>{

@@ -1,4 +1,4 @@
-const addressService = require('../services/addressService')
+const addressService = require('../services/addressServices')
 const catchAsync = require('../utils/asyncErrorHandler')
 
 const addAddress = catchAsync(async (req, res, next) =>{

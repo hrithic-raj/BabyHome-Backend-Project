@@ -1,8 +1,8 @@
-const userService = require('../services/userService');
+const userService = require('../services/userServices');
 const hashingPassword = require('../utils/hashingPassword');
 const tokenCreator = require('../utils/tokenCreator');
 const catchAsync = require('../utils/asyncErrorHandler');
-const AppError = require('../utils/AppError');
+const AppError = require('../utils/appError');
 
 const signup = catchAsync(async (req, res, next)=>{
     const {name, email, username, password, role} = req.body;

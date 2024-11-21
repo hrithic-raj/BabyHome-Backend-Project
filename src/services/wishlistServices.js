@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Wishlist = require('../models/wishlistModel');
-const AppError = require("../utils/AppError");
-const { getProductById } = require('./productService');
+const AppError = require("../utils/appError");
+const { getProductById } = require('./productServices');
 
 exports.addToWishlist = async (userId, productId) =>{
     const wishlist = await Wishlist.findOne({userId});
