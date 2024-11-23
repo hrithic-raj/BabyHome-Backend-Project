@@ -22,14 +22,20 @@ exports.addToCart = async (userId, productId, count) => {
         } else {
             cart.products.push({ productId, count, price, totalPrice, oldTotalPrice });
         }
-
+        cart.oldTotalCartPrice = cart.products.reduce((total, item) => total + item.oldTotalPrice, 0);
         cart.totalCartPrice = cart.products.reduce((total, item) => total + item.totalPrice, 0);
+        cart.delivaryCharge = cart.totalCartPrice<499? true: false;
+        cart.platformFee = cart.totalCartPrice!==0? true: false;
         await cart.save();
     } else {
+        let delivaryCharge;
+        totalPrice>499 && delivaryCharge === true
         cart = new Cart({
             userId,
             products: [{ productId, count, price, totalPrice, oldTotalPrice }],
-            totalCartPrice: totalPrice
+            oldTotalCartPrice: oldTotalPrice,
+            totalCartPrice: totalPrice,
+            delivaryCharge
         });
         await cart.save();
     }
@@ -39,18 +45,26 @@ exports.addToCart = async (userId, productId, count) => {
 
 
 exports.deleteCartItem = async (userId, productId)=>{
-    const cart = await Cart.findOne({ userId });
+    const cart = await Cart.findOne({ userId }).populate({
+        path:'products.productId',
+        model: 'Products',
+    });
     if (!cart) throw new AppError("Cart not found", 404);
     
     cart.products = cart.products.filter((item) => !item.productId.equals(productId));
     cart.totalCartPrice = cart.products.reduce((total, item) => total + item.totalPrice, 0);
-    
+    cart.oldTotalCartPrice = cart.products.reduce((total, item) => total + item.oldTotalPrice, 0);
+    cart.delivaryCharge = cart.totalCartPrice<499? true: false;
+    cart.platformFee = cart.totalCartPrice!==0? true: false;
     await cart.save();
-    return { message: "Product deleted from cart successfully!" };
+    return cart;
 }
 
 exports.increaseCount = async (userId, productId)=>{
-    const cart = await Cart.findOne({userId});
+    const cart = await Cart.findOne({userId}).populate({
+        path:'products.productId',
+        model: 'Products',
+    });
     if (!cart) throw new AppError( "Cart not found", 404 );
     
     const product = cart.products.find((item)=>item.productId.equals(productId))
@@ -59,25 +73,34 @@ exports.increaseCount = async (userId, productId)=>{
     product.count += 1;
     product.totalPrice = product.price * product.count;
     product.oldTotalPrice = (product.oldprice || product.price) * product.count;
-
+    
     cart.totalCartPrice = cart.products.reduce((total, item)=> total + item.totalPrice,0);
+    cart.oldTotalCartPrice = cart.products.reduce((total, item) => total + item.oldTotalPrice, 0);
+    cart.delivaryCharge = cart.totalCartPrice<499? true: false;
+    cart.platformFee = cart.totalCartPrice!==0? true: false;
     await cart.save();
-    return cart.products;
+    return cart;
 }
 
 
 exports.decreaseCount = async (userId, productId)=>{
-    const cart = await Cart.findOne({userId});
+    const cart = await Cart.findOne({userId}).populate({
+        path:'products.productId',
+        model: 'Products',
+    });
     if (!cart) throw new AppError("Cart not found", 404);
     
     const product = cart.products.find((item)=>item.productId.equals(productId))
     if (!product) throw new AppError("Product not found in cart", 404);
-
+    
     product.count -= 1;
     product.totalPrice = product.price * product.count;
     product.oldTotalPrice = (product.oldprice || product.price) * product.count;
-
+    
     cart.totalCartPrice = cart.products.reduce((total, item)=> total + item.totalPrice,0);
+    cart.oldTotalCartPrice = cart.products.reduce((total, item) => total + item.oldTotalPrice, 0);
+    cart.delivaryCharge = cart.totalCartPrice<499? true: false;
+    cart.platformFee = cart.totalCartPrice!==0? true: false;
     await cart.save();
-    return cart.products;
+    return cart;
 }

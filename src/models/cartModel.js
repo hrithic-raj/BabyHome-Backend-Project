@@ -11,6 +11,9 @@ const cartSchema = new mongoose.Schema({
             oldTotalPrice: { type: Number }
         }
     ],
+    platformFee: {type: Boolean, default: true},
+    delivaryCharge: {type: Boolean, default: false},
+    oldTotalCartPrice: { type: Number, default: 0 },
     totalCartPrice: { type: Number, default: 0 }
 })
 const Cart = mongoose.model('Carts',cartSchema)

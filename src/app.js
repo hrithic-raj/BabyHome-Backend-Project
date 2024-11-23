@@ -11,7 +11,8 @@ const globalErrorHandler = require('./middlewares/globalErrorHandler');
 const mongooseErrorHandler = require('./middlewares/mongooseErrorHandler');
 const app = express();
 
-app.use(express.urlencoded({extended: true}));
+// app.use(express.urlencoded({extended: true}));
+app.use(express.json());
 
 //allow frontend
 app.use(
@@ -22,13 +23,13 @@ app.use(
 )
 
 //routes
-app.use('/store', productRouter)
-app.use('/users', userRouter)
-app.use('/cart', cartRouter)
-app.use('/orders', orderRouter)
-app.use('/address', addressRouter)
-app.use('/wishlist', wishlistRouter)
-app.use('/admin', adminRouter)
+app.use('/api/store', productRouter)
+app.use('/api/users', userRouter)
+app.use('/api/cart', cartRouter)
+app.use('/api/orders', orderRouter)
+app.use('/api/address', addressRouter)
+app.use('/api/wishlist', wishlistRouter)
+app.use('/api/admin', adminRouter)
 
 //mongoose error handler
 app.use(mongooseErrorHandler);
