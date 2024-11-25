@@ -39,12 +39,19 @@ exports.getAddressById = async (userId, addressId) =>{
 }
 
 exports.updateAddress = async (userId, addressId, addressData) =>{
-    const address = await Address.findOne({userId})
-    const addressIndex = address.allAddress.findIndex(item => item._id.equals(addressId))
-    if(addressIndex === -1) throw new AppError('address not found', 404);
-    address.allAddress[addressIndex] = addressData;
-    
-    return await address.save();
+    const address = await Address.findOneAndUpdate(
+        {'allAddress._id': addressId},
+        {$set: { 'allAddress.$': addressData}},
+        {new: true}
+    );
+    return address;
+}
+exports.setPrimaryAddress = async (userId, addressId) =>{
+    const userAddress = await Address.findOne({userId});
+    userAddress.allAddress.forEach( addr => {
+        addr.isSelected = addr._id.toString() ===  addressId;
+    });
+    return await userAddress.save();
 }
 
 exports.deleteAddress = async (userId, addressId) =>{

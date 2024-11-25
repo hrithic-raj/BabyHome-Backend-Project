@@ -15,7 +15,7 @@ adminRouter.post('/products', adminAuth, productValidation, addProduct);
 adminRouter.delete('/products/:productId', adminAuth, deleteProductById);
 adminRouter.patch('/products/:productId', adminAuth, updateProductById);
 adminRouter.get('/orders', adminAuth, getAllOrders);
-adminRouter.get('/totalRevenue', adminAuth, getTotalRevenue);
-adminRouter.get('/totalProductSold', adminAuth, getSoldProductCount);
+adminRouter.get('/total-revenue', adminAuth, getTotalRevenue);
+adminRouter.get('/total-productSold', adminAuth, getSoldProductCount);
 
 module.exports = adminRouter;

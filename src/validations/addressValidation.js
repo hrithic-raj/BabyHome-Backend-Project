@@ -5,7 +5,6 @@ const addressValidation = [
     body('street').not().isEmpty().withMessage('street required !'),
     body('state').not().isEmpty().withMessage('state required !'),
     body('country').not().isEmpty().withMessage('country required !'),
-    body('country').not().isEmpty().withMessage('country required !'),
     body('pincode').isLength({min:6}).withMessage('Enter a valid pincode !'),
     body('phone').isLength({max:10,min:10}).withMessage('Enter a valid phone number !'),
     (req,res,next) => {

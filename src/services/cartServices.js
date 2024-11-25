@@ -93,10 +93,13 @@ exports.decreaseCount = async (userId, productId)=>{
     const product = cart.products.find((item)=>item.productId.equals(productId))
     if (!product) throw new AppError("Product not found in cart", 404);
     
-    product.count -= 1;
+    if(product.count===1){
+        product.count=product.count;
+    }else{
+        product.count -= 1;
+    }
     product.totalPrice = product.price * product.count;
     product.oldTotalPrice = (product.oldprice || product.price) * product.count;
-    
     cart.totalCartPrice = cart.products.reduce((total, item)=> total + item.totalPrice,0);
     cart.oldTotalCartPrice = cart.products.reduce((total, item) => total + item.oldTotalPrice, 0);
     cart.delivaryCharge = cart.totalCartPrice<499? true: false;
