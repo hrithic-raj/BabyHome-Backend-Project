@@ -28,7 +28,21 @@ exports.getAllAddressById = async (userId) =>{
     return userAddress.allAddress;
 }
 
-exports.getAddressById = async (userId, addressId) =>{
+exports.getPrimaryAddress = async (userId) =>{
+    const userAddress = await Address.findOne({userId});
+    console.log(userAddress);
+    
+    if(!userAddress) throw new AppError('address not rfgvrv', 404);
+    const addressIndex = userAddress.allAddress.findIndex(item => item.isSelected === true)
+    
+    if(addressIndex === -1) {
+        if(!userAddress.allAddress[0]) throw new AppError('no address found', 404);
+        return userAddress.allAddress[0];
+    }
+    return userAddress.allAddress[addressIndex];
+}
+
+exports.getAddressById= async (userId, addressId) =>{
     const userAddress = await Address.findOne({userId});
     if(!userAddress) throw new AppError('address not found', 404);
     const addressIndex = userAddress.allAddress.findIndex(item => item._id.equals(addressId))

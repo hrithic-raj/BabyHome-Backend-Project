@@ -31,6 +31,15 @@ const getAddressById = catchAsync(async (req, res, next) =>{
     });
 });
 
+const getPrimaryAddress = catchAsync(async (req, res, next) =>{
+    const userId = req.id;
+    const address = await addressService.getPrimaryAddress(userId);
+    res.status(200).json({
+        status:"success",
+        data: address
+    });
+});
+
 const updateAddress = catchAsync(async (req, res, next) =>{
     const userId = req.id;
     const addressId = req.params.addressId;
@@ -69,5 +78,6 @@ module.exports = {
     updateAddress,
     deleteAddress,
     getAllAddressById,
-    setPrimaryAddress
+    setPrimaryAddress,
+    getPrimaryAddress
 }
