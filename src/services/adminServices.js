@@ -34,7 +34,7 @@ exports.blockUserById = async (userId) =>{
         user.block = true;
     }
     await user.save();
-    return user;
+    return user.block;
 }
 
 //product services
@@ -63,7 +63,27 @@ exports.updateProductById = async (productId, productData)=>{
 }
 
 exports.getAllOrders = async ()=>{
-    return await Order.find();
+    // return await Order.find();
+    const orders = await Order.aggregate([
+        {$unwind: '$items'},
+        {
+            $lookup:{
+                from: 'products',
+                localField: 'items.productId',
+                foreignField: '_id',
+                as: 'items.productDetails'
+            }
+        },{
+            $lookup:{
+                from: 'users',
+                localField: 'userId',
+                foreignField: '_id',
+                as: 'user'
+            }
+        }
+    ])
+    if(!orders || orders.length === 0) throw new AppError('No orders found', 404);
+    return orders;
 }
 
 exports.getTotalRevenue = async () =>{

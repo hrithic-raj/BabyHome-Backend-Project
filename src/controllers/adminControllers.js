@@ -2,7 +2,7 @@ const adminService = require('../services/adminServices');
 const { getProductById } = require('../services/productServices');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/asyncErrorHandler');
-
+const orderService = require('../services/orderServices')
 
 //Users controllers:-
 
@@ -43,8 +43,6 @@ const deleteUserById = catchAsync(async (req, res, next)=>{
 const blockUserById = catchAsync(async (req, res, next)=>{
     const userId = req.params.userId;
     const user = await adminService.blockUserById(userId);
-    
-    if(!user) return next(new AppError("bad request", 400));
     res.status(200).json({
         status : "success",
         message:"User blocked successfully",
@@ -118,7 +116,14 @@ const getSoldProductCount = catchAsync(async (req, res, next)=>{
     });
 });
 
-
+const adminGetOrdersById = catchAsync(async (req, res, next)=>{
+    const userId = req.params;
+    const order = await orderService.getOrdersById(userId)
+    res.status(200).json({
+        status:"success",
+        data: order
+    });
+});
 module.exports = {
     getAllUsers,
     getUserById,
@@ -130,4 +135,5 @@ module.exports = {
     getAllOrders,
     getTotalRevenue,
     getSoldProductCount,
+    adminGetOrdersById
 }
