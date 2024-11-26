@@ -11,10 +11,15 @@ exports.addAddress = async (userId, newAddress)=>{
     let address = await Address.findOne({userId});
     
     if(!address){
+        newAddress.isSelected = true;
         address = new Address({
             userId,
             allAddress: [newAddress]
         })
+        return await address.save();
+    }else if(address.allAddress.length<=0){
+        newAddress.isSelected = true;
+        address.allAddress.push(newAddress);
         return await address.save();
     }else{
         address.allAddress.push(newAddress);
@@ -30,7 +35,6 @@ exports.getAllAddressById = async (userId) =>{
 
 exports.getPrimaryAddress = async (userId) =>{
     const userAddress = await Address.findOne({userId});
-    console.log(userAddress);
     
     if(!userAddress) throw new AppError('address not rfgvrv', 404);
     const addressIndex = userAddress.allAddress.findIndex(item => item.isSelected === true)

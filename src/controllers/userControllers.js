@@ -57,7 +57,7 @@ const login = catchAsync(async (req, res, next) =>{
         message: "User login successfull",
         data: {
             user:{
-                id:user.id,
+                id:user._id,
                 name: user.name,
                 username: user.username,
                 email: user.email,
