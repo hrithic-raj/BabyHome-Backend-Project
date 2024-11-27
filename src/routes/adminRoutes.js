@@ -1,7 +1,7 @@
 const express = require('express');
 const adminRouter = express.Router();
 const adminAuth = require('../middlewares/adminAuth');
-const { getAllUsers, getUserById, deleteUserById, blockUserById, deleteProductById, addProduct, updateProductById, getAllOrders, getTotalRevenue, getSoldProductCount, getOrderCountById, adminGetOrdersById } = require('../controllers/adminControllers');
+const { getAllUsers, getUserById, deleteUserById, blockUserById, deleteProductById, addProduct, updateProductById, getAllOrders, getTotalRevenue, getSoldProductCount, getOrderCountById, adminGetOrdersById, getAdminFromToken } = require('../controllers/adminControllers');
 const { allProducts, productById } = require('../controllers/productControllers');
 const productValidation = require('../validations/productValidation');
 
@@ -18,5 +18,6 @@ adminRouter.get('/orders', adminAuth, getAllOrders);
 adminRouter.get('/orders/:userId', adminAuth, adminGetOrdersById);
 adminRouter.get('/total-revenue', adminAuth, getTotalRevenue);
 adminRouter.get('/total-product-sold', adminAuth, getSoldProductCount);
+adminRouter.get('/admin-details', adminAuth, getAdminFromToken);
 
 module.exports = adminRouter;

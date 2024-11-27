@@ -2,7 +2,8 @@ const adminService = require('../services/adminServices');
 const { getProductById } = require('../services/productServices');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/asyncErrorHandler');
-const orderService = require('../services/orderServices')
+const orderService = require('../services/orderServices');
+const User = require('../models/userModel');
 
 //Users controllers:-
 
@@ -122,6 +123,21 @@ const adminGetOrdersById = catchAsync(async (req, res, next)=>{
         data: order
     });
 });
+
+
+//admin
+
+const getAdminFromToken = catchAsync(async (req, res, next)=>{
+    const adminId = req.adminId;
+    
+    const admin = await User.findById(adminId);
+    res.status(201).json({
+        status:"success",
+        message:"admin fetched successfully",
+        response: admin
+    });
+})
+
 module.exports = {
     getAllUsers,
     getUserById,
@@ -133,5 +149,6 @@ module.exports = {
     getAllOrders,
     getTotalRevenue,
     getSoldProductCount,
-    adminGetOrdersById
+    adminGetOrdersById,
+    getAdminFromToken
 }
