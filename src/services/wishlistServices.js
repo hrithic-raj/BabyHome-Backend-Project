@@ -7,7 +7,6 @@ exports.addToWishlist = async (userId, productId) =>{
     const wishlist = await Wishlist.findOne({userId});
     const product = await getProductById(productId);
     if (!product) throw new AppError("Product not found", 404);
-
     if(!wishlist){
         const newWishlist = new Wishlist({
             userId,
@@ -31,9 +30,9 @@ exports.deleteFromWishlist = async (userId, productId)=>{
     let wishlist = await Wishlist.findOne({userId});
     const wishlistIndex = wishlist.products.findIndex(item=>item.equals(productId))
     if(wishlistIndex == -1) throw new AppError("product not found in wishlist", 400)
-    if(wishlist || wishlist.products.length !== 0){
-       wishlist.products = wishlist.products.filter(item=>!item.equals(productId))
-       await wishlist.save();
+        if(wishlist || wishlist.products.length !== 0){
+            wishlist.products = wishlist.products.filter(item=>!item.equals(productId))
+            await wishlist.save();
        return await Wishlist.findOne({ userId }).populate('products')
     }
 }
@@ -42,4 +41,12 @@ exports.getWishlistById = async (userId) =>{
     let wishlist = await Wishlist.findOne({userId}).populate('products');
     if (!wishlist || wishlist.products.length === 0) throw new AppError("wishlist is empty", 204);
     return wishlist;
+}
+
+exports.checkWishlistById = async (userId, productId) =>{
+    let wishlist = await Wishlist.findOne({userId});
+    if (!wishlist || wishlist.products.length === 0) throw new AppError("wishlist is empty", 204);
+    const wishlistIndex = wishlist.products.findIndex(item=>item.equals(productId))
+    if(wishlistIndex === -1) return false;
+    else return true;
 }

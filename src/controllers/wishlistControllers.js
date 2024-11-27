@@ -31,9 +31,19 @@ const getWishlistById = catchAsync(async (req, res, next) =>{
         data: wishlist
     });
 });
+const checkWishlistById = catchAsync(async (req, res, next) =>{
+    const userId = req.id;
+    const productId = req.params.productId;
+    const wishlist = await wishlistService.checkWishlistById(userId, productId);
+    res.status(200).json({
+        status:"success",
+        data: wishlist
+    });
+});
 
 module.exports = {
     addToWishlist,
     deleteFromWishlist,
     getWishlistById,
+    checkWishlistById,
 }
