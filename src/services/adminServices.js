@@ -42,12 +42,14 @@ exports.blockUserById = async (userId) =>{
 exports.addProduct = async (newProduct) =>{
     const products = new Product(newProduct);
     return await products.save();
+
 }
 
 exports.deleteProductById = async (productId)=>{
     const products = await Product.find();
     if(!products) throw new AppError("something went wrong", 500);
-    return await Product.findByIdAndDelete(productId);
+    await Product.findByIdAndDelete(productId);
+    return await Product.find();
 }
 
 exports.updateProductById = async (productId, productData)=>{ 

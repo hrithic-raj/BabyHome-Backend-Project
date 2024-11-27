@@ -3,7 +3,8 @@ const catchAsync = require('../utils/asyncErrorHandler')
 
 const addAddress = catchAsync(async (req, res, next) =>{
     const userId = req.id;
-    const newAddress = req.body;    
+    const newAddress = req.body; 
+
     const address = await addressService.addAddress(userId, newAddress);
     res.status(201).json({
         status:"success",

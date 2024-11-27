@@ -5,13 +5,13 @@ const productSchema = new mongoose.Schema({
     price : {type: Number, required: true},
     description: {type: String, required: true},
     category: {type: String, required: true},
-    image: {type: String, required: true},
-    images: {type: [String]},
+    image: {type: String},
+    images: {type: [String],  required: true},
     oldprice: {type: Number, required: true},
     bestseller: { type: Boolean, default: false },
     newlyadded: { type: Boolean, default: false },
     stock: {type: Number, required: true},
-    rating:{type: Number, required: true}
+    rating:{type: Number}
 })
 const Product = mongoose.model("Products",productSchema);
 

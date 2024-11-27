@@ -11,7 +11,7 @@ adminRouter.delete('/users/:userId', adminAuth, deleteUserById);
 adminRouter.patch('/users/:userId', adminAuth, blockUserById);
 adminRouter.get('/products', adminAuth, allProducts);
 adminRouter.get('/products/:productId', adminAuth, productById);
-adminRouter.post('/products', adminAuth, productValidation, addProduct);
+adminRouter.post('/products', adminAuth, addProduct);
 adminRouter.delete('/products/:productId', adminAuth, deleteProductById);
 adminRouter.patch('/products/:productId', adminAuth, updateProductById);
 adminRouter.get('/orders', adminAuth, getAllOrders);

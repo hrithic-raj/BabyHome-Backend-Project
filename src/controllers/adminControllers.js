@@ -54,9 +54,7 @@ const blockUserById = catchAsync(async (req, res, next)=>{
 //Product controllers:-
 
 const addProduct = catchAsync(async (req, res, next)=>{
-    let {images, ...otherDatas} = req.body;
-    images = images.split(',')
-    let newProduct = {images, ...otherDatas}
+    let newProduct = req.body.productData;
     const result = await adminService.addProduct(newProduct);
     res.status(201).json({
         status : "success",
