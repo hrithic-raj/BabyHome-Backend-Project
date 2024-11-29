@@ -3,16 +3,31 @@ const catchAsync = require('../utils/asyncErrorHandler')
 const AppError = require('../utils/appError')
 
 const allProducts = catchAsync(async (req, res, next)=>{
-
     const category = req.query.category;
-    let products;
-    if(category) products = await productService.getProductByCategory(category);
-    else products = await productService.getAllProducts();
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    let products, total;
+
+    if(category){
+        products = await productService.getProductByCategory(category, skip, limit);
+        total = await productService.getTotalCountByCategory(category);
+    }
+    else {
+        products = await productService.getAllProducts(skip, limit);
+        total = await productService.getTotalCount();
+    }
     
     if(!products.length) return next(new AppError( "bad request", 400));
     res.status(200).json({
         status : "fetching success",
-        data : products
+        data : {
+            products,
+            total,
+            totalPages: Math.ceil(total/limit),
+            currentPage: page,
+        },
     });
 });
 
