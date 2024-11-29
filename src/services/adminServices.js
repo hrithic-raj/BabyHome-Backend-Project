@@ -44,6 +44,13 @@ exports.addProduct = async (newProduct) =>{
     return await products.save();
 
 }
+// exports.uploadProductImages = async (files) =>{
+//     const imageUrls = [];
+//     if(files && files.length>0){
+
+//     }
+
+// }
 
 exports.deleteProductById = async (productId)=>{
     const products = await Product.find();

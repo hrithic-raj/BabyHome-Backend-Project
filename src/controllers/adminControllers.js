@@ -64,6 +64,24 @@ const addProduct = catchAsync(async (req, res, next)=>{
     });
 });
 
+// const addProduct = catchAsync(async (req, res, next)=>{
+//     let {productData} = req.body;
+//     //upload to cloudinary
+//     const uploadedImages = await adminService.uploadProductImages(req.files);
+//     //combine with url
+//     const imageUrls = [
+//         ...uploadedImages,
+//         ...(productData.images || []).filter(url=>url),
+//     ];
+
+//     const product = await adminService.addProduct(productData, imageUrls);
+//     res.status(201).json({
+//         status : "success",
+//         message:"product added successfully",
+//         data : product
+//     });
+// });
+
 const deleteProductById = catchAsync(async (req, res, next)=>{
     const productId = req.params.productId;
     const result = await adminService.deleteProductById(productId)
