@@ -53,6 +53,15 @@ const blockUserById = catchAsync(async (req, res, next)=>{
 
 
 //Product controllers:-
+const allProducts = catchAsync(async (req, res, next)=>{
+    let products = await adminService.getAllProducts();
+
+    if(!products.length) return next(new AppError( "bad request", 400));
+    res.status(200).json({
+        status : "fetching success",
+        data : products
+    });
+});
 
 const addProduct = catchAsync(async (req, res, next)=>{
     let newProduct = req.body.productData;
@@ -161,6 +170,7 @@ module.exports = {
     getUserById,
     deleteUserById,
     blockUserById,
+    allProducts,
     addProduct,
     deleteProductById,
     updateProductById,

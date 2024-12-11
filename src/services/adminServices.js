@@ -38,6 +38,9 @@ exports.blockUserById = async (userId) =>{
 }
 
 //product services
+exports.getAllProducts = async ()=>{
+    return await Product.find();
+}
 
 exports.addProduct = async (newProduct) =>{
     const products = new Product(newProduct);
